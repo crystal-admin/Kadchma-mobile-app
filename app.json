@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#3dda83"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -24,8 +24,9 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
+        "backgroundColor": "#3dda83"
+      },
+      "package": "ng.gov.kdsg.kadchma2.kadchmamobileapp"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

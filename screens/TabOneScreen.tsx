@@ -22,11 +22,14 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     
     const { url }  = navigationState;
     
+    alert(navigationState);
     //check for url changes and redirect
-    if (url.includes('https://kadchma2.kdsg.gov.ng/home-page/')) {
+    if (url === 'https://kadchma2.kdsg.gov.ng/home-page/' ) {
       const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
-      const redirectTo = 'window.location = "' + newURL + '"';
-      return redirectTo;
+      //const redirectTo = 'window.location = "' + newURL + '"';
+      return window.location.href = newURL;
+    } else {
+      return "<Text style='color: red; alignItems: center, justifyContent: center'>Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the menu option above to reload this page.</Text>";
     }
 
     // alert(redirectTo);
@@ -34,14 +37,12 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   }
 
   return (
-    <View>
-        <><WebView
-          style={styles.container}
-          originWhitelist={['*']}
-          source={{ uri: 'https://kadchma2.kdsg.gov.ng/login/'}} 
-          onNavigationStateChange={handleWebViewNavigationStateChange}
-        /></>
-    </View> 
+      <><WebView
+        style={styles.container}
+        originWhitelist={['*']}
+        source={{ uri: 'https://kadchma2.kdsg.gov.ng/login/'}} 
+        onNavigationStateChange={handleWebViewNavigationStateChange}
+      /></>
   );
 }
 
@@ -49,8 +50,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     // color: "#000000",
   },
   title: {
