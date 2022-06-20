@@ -18,9 +18,19 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
   //   }
   // });
 
-  const onNavigationStateChange = (navigationState: WebViewNavigation) => {
-      alert(navigationState.url);
-      alert(navigationState.mainDocumentURL);
+  const handleWebViewNavigationStateChange = (navigationState: WebViewNavigation) => {
+    
+    const { url }  = navigationState;
+    
+    //check for url changes and redirect
+    if (url.includes('https://kadchma2.kdsg.gov.ng/home-page/')) {
+      const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
+      const redirectTo = 'window.location = "' + newURL + '"';
+      return redirectTo;
+    }
+
+    // alert(redirectTo);
+    //   alert(navigationState.mainDocumentURL);
   }
 
   return (
@@ -29,7 +39,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           style={styles.container}
           originWhitelist={['*']}
           source={{ uri: 'https://kadchma2.kdsg.gov.ng/login/'}} 
-          onNavigationStateChange={onNavigationStateChange}
+          onNavigationStateChange={handleWebViewNavigationStateChange}
         /></>
     </View> 
   );
