@@ -1,46 +1,38 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import { TouchableOpacity, Button, Platform, StyleSheet } from 'react-native';
 // import Dialog, { SlideAnimation, DialogContent } from 'react-native-popup-dialog';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 
 
-export default function ModalScreen() {
+export default class ModalScreen extends Component {
 
   // const {visible, setVisible} = useState<string>("true");
 
-  const reloader = () => {
+  reloader = () => {
     window.location.reload();
   }
 
-  return (
-    <View style={styles.container}>
-      {/* <TouchableOpacity onPress={() => reloader()}>
-        <Text>
-          Reload
-        </Text>
-      </TouchableOpacity>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      */}
-
-
-      {/* <View style={styles.container}>
-        <Dialog
-          visible={visible}
-          dialogAnimation={new SlideAnimation({
-            slideFrom: 'bottom',
-          })}
-        >
-          <DialogContent>
-            {}
-          </DialogContent>
-        </Dialog>
-      </View> */}
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
-      <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
-    </View>
-  );
+  render(){
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity style={styles.button1} onPress={() => this.reloader()}>
+          <Text>
+            Reload this App
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button1}>
+          <Text>
+            Clear App Cache
+          </Text>
+        </TouchableOpacity>
+        
+    
+        <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -48,6 +40,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  button1: {
+    backgroundColor: "#3dda83",
+    padding: 20,
+    margin: 10,
+    borderRadius: 30,
+    color: "#ffffff"
+  },
+  button2: {
+    backgroundColor: "#3dda83",
+    borderRadius: 30,
+    padding: 20,
+    color: "#ffffff"
   },
   title: {
     fontSize: 20,

@@ -19,7 +19,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "ng.gov.kdsg.kadchma2.kadchmamobileapp"
     },
     "android": {
       "adaptiveIcon": {
