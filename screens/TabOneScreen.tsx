@@ -9,17 +9,18 @@ export default class TabOneScreen  extends Component  {
   handleWebViewNavigationStateChange = ( newNavState: { url: any; }) => {
 
     const { url } = newNavState;
-    if (!url) return;
+    if(!url) return;
 
     // one way to handle errors is via query string
     // if (url.includes('?errors=true')) {
     //   this.webview.stopLoading();
     // }
-
+    alert("detects this function");
+    alert(window.location.href);
     // redirect somewhere else
-    if (url.includes('https://kadchma2.kdsg.gov.ng/home-page/')) {
+    if(url.includes('https://kadchma2.kdsg.gov.ng/home-page/')) {
       const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
-      const redirectTo = 'window.location = "' + newURL + '"';
+      const redirectTo = 'window.location.href = "' + newURL + '"';
       this.webview.injectJavaScript(redirectTo);
     }
   };

@@ -9,7 +9,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
-
+import { Dropdown } from 'react-native-material-dropdown';
 import { Entypo } from '@expo/vector-icons'; 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -40,6 +40,9 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+
+ 
+
   return (
     <Stack.Navigator>
       <Stack.Screen name="Root" component={TabOneScreen} 
@@ -51,7 +54,7 @@ function RootNavigator() {
           tabBarIcon: ({ color }: any) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => (alert("refresh"))}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
