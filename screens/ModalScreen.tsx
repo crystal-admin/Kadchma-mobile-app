@@ -11,7 +11,7 @@ export default class ModalScreen extends Component {
   // const {visible, setVisible} = useState<string>("true");
 
   reloader = () => {
-    window.location.reload();
+    document.location.reload();
   }
 
   render(){
