@@ -6,7 +6,7 @@ import { Text, View } from '../components/Themed';
 
 export default function TabTwoScreen() {
   let webviewRef = React.useRef(null);
-  console.log(webviewRef.current);
+  //console.log(webviewRef.current);
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>

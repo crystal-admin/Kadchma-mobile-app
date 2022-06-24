@@ -4,34 +4,35 @@ import { WebView } from 'react-native-webview';
 
 export default function TabOneScreen() {
 
+  
   let webviewRef = React.useRef(null);
 
-  const handleWebViewNavigationStateChange = ( newNavState: { url: any; }) => {
+  // const handleWebViewNavigationStateChange = ( newNavState: { url: any; }) => {
 
     
-    const { url } = newNavState;
-    if(!url) return;
+  //   const { url } = newNavState;
+  //   if(!url) return;
 
-    // one way to handle errors is via query string
-    // if (url.includes('?errors=true')) {
-    //   this.webview.stopLoading();
-    // }
-    // alert("detects this function");
-    // alert(window.location.href);
-    // redirect somewhere else
-    if(url == 'https://kadchma2.kdsg.gov.ng/home-page/') {
-      //const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
-      //const redirectTo = 'window.location = "' + newURL + '"';
-      if(webviewRef.current == document.location.href){
+  //   // one way to handle errors is via query string
+  //   // if (url.includes('?errors=true')) {
+  //   //   this.webview.stopLoading();
+  //   // }
+  //   // alert("detects this function");
+  //   // alert(window.location.href);
+  //   // redirect somewhere else
+  //   if(url == 'https://kadchma2.kdsg.gov.ng/home-page/') {
+  //     //const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
+  //     //const redirectTo = 'window.location = "' + newURL + '"';
+  //     if(webviewRef.current == document.location.href){
 
-      }
-      //webviewRef.current.injectJavaScript("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
-    }
+  //     }
+  //     //webviewRef.current.injectJavaScript("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
+  //   }
 
-    return;
-  };
+  //   return;
+  // };
 
-  
+ 
     return (
       <><WebView
         onNavigationStateChange={(event) => {
@@ -43,7 +44,8 @@ export default function TabOneScreen() {
         originWhitelist={['*']}
         source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
         //onNavigationStateChange={handleWebViewNavigationStateChange}
-        ref={webviewRef} 
+        // ref={webviewRef} 
+        onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page."}
       /></>
     );
 }

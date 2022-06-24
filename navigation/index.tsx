@@ -7,10 +7,12 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import {useEffect, useState } from 'react';
+import { ColorSchemeName, Pressable, FlatList, Text } from 'react-native';
+import ModalDropdown from 'react-native-modal-dropdown';
 
 import { Entypo } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
@@ -40,6 +42,43 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    //console.log("Running useEffect");
+  }, [count]) 
+
+  //console.log("Running render");
+  // const reloader = () => {
+  //   //console.log("reloading " + window.location.href);
+  //   window.location.reload()
+  // }
+
+  // const dropDownBuilder = () => {
+  //     //create elements
+  //     let mainDiv = document.createElement("div");
+  //     let style = document.createElement("style");
+  //     let button = document.createElement("button");
+
+      
+  //     //adding attributes
+  //     mainDiv.setAttribute("id", "dropdown");
+    
+
+  //     //adding all styles
+  //     style.innerHTML = `
+  //       #dropdown {
+  //         position: relative;
+  //         display: inline-block;
+  //       }
+
+  //       .show {display: block;}
+  //     `;
+
+  //     document.head.appendChild(style);
+  // }
+
   return (
     <Stack.Navigator>
       <Stack.Screen name="Root" component={TabOneScreen} 
@@ -51,12 +90,14 @@ function RootNavigator() {
           tabBarIcon: ({ color }: any) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => setCount(count + 1)}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
+              <Ionicons name="ios-reload-circle" size={24} color="white" />
+              {/* 
               <Entypo name="dots-three-vertical" size={24} color="#ffffff" />
-              {/* <FontAwesome
+              <FontAwesome
                 name="info-circle"
                 size={25}
                 color={Colors[colorScheme].text}
