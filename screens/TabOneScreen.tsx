@@ -35,14 +35,14 @@ export default function TabOneScreen() {
  
     return (
       <><WebView
+        style={styles.container}
+        originWhitelist={['*']}
+        source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
         onNavigationStateChange={(event) => {
           if(event.url === 'https://kadchma2.kdsg.gov.ng/home-page/'){
              event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
           }
         }}
-        style={styles.container}
-        originWhitelist={['*']}
-        source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
         //onNavigationStateChange={handleWebViewNavigationStateChange}
         // ref={webviewRef} 
         onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page."}
