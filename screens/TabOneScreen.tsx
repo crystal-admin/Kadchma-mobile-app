@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
+import { WebViewNavigationEvent } from 'react-native-webview/lib/WebViewTypes';
 import { View } from '../components/Themed';
 
 export default function TabOneScreen() {
@@ -30,7 +31,14 @@ export default function TabOneScreen() {
 
   //   return;
   // };
+  
+    const handleViewStart = (event: WebViewNavigationEvent) => {
 
+      if(event.nativeEvent.url === "https://kadchma2.kdsg.gov.ng/home-page/"){
+         event.nativeEvent.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
+      }
+      setVisible(true);
+    }
  
     return (
       <SafeAreaView style={styles.container}>
@@ -38,10 +46,8 @@ export default function TabOneScreen() {
           style={{ flex: 1 }}
           originWhitelist={['*']}
           source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
-          onNavigationStateChange={(event) => {
-            if(event.loading){
-              event.url = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app'
-            }       
+          onNavigationStateChange={(event) => {          
+            event.url = 'https://kadchma2.kdsg.gov.ng/home-page/'   
             if(event.url === 'https://kadchma2.kdsg.gov.ng/home-page/'){
               event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
             }
@@ -51,8 +57,9 @@ export default function TabOneScreen() {
           javaScriptEnabled={true}
           //for cache storage
           domStorageEnabled={true}
+          //injectedJavaScript={if(window.location.href){}}
           renderLoading={() => <ActivityIndicatorElement />}
-          onLoadStart={() => setVisible(true)}
+          onLoadStart={(event) => handleViewStart(event)}
           onLoad={() => setVisible(false)}
         />
         {visible ? <ActivityIndicatorElement /> : null }
