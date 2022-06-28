@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView, ActivityIndicator } from 'react-native';
-import { WebView } from 'react-native-webview';
+import  { WebView }  from 'react-native-webview';
+import reload from "../node_modules/react-native-webview"
 import { WebViewNavigationEvent } from 'react-native-webview/lib/WebViewTypes';
 import { View } from '../components/Themed';
 
 export default function TabOneScreen() {
 
-  const [visible, setVisible] = useState(false);
+
+  const [visible, setVisible] = useState(true);
+  const [reload, setReload] = useState(false);
+  const [count, setCount] = useState(0);
+  const [link, setLink] = useState("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
   let webviewRef = React.useRef(null);
+  
+  const webView = WebView;
   
   const ActivityIndicatorElement = () => {
       return (
@@ -18,49 +25,144 @@ export default function TabOneScreen() {
   }
 
   
-  //   // alert(window.location.href);
-  //   // redirect somewhere else
-  //   if(url == 'https://kadchma2.kdsg.gov.ng/home-page/') {
-  //     //const newURL = 'https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app';
-  //     //const redirectTo = 'window.location = "' + newURL + '"';
-  //     if(webviewRef.current == document.location.href){
 
-  //     }
-  //     //webviewRef.current.injectJavaScript("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
-  //   }
-
-  //   return;
-  // };
+    // const YesReload = () => {
+    //   return (
+    //     <SafeAreaView style={styles.container}>
+    //       <WebView
+            
+    //         style={{ flex: 1 }}
+    //         originWhitelist={['*']}
+    //         source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
+    //         onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page or close and reopen the app."}
+    //         javaScriptEnabled={true}
+    //         //for cache storage
+    //         domStorageEnabled={true}
+    //         //injectedJavaScript={if(window.location.href){}}
+    //         renderLoading={() => <ActivityIndicatorElement />}
+    //         // onLoadStart={(event) => handleViewStart(event)}
+    //         // onLoad={() => setReload(true)}
+    //       />
+    //     </SafeAreaView>
+    //     )
+    //   }
   
-    const handleViewStart = (event: WebViewNavigationEvent) => {
+      // const NoReload = () => {
+      //   return (
+      //     <SafeAreaView style={styles.container}>
+      //       <WebView
+      //         style={{ flex: 1 }}
+      //         originWhitelist={['*']}
+      //         source={{ uri: "https://kadchma2.kdsg.gov.ng/login"}} 
+      //         // ref={webviewRef} 
+      //         onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page or close and reopen the app."}
+      //         javaScriptEnabled={true}
+      //         //for cache storage
+      //         domStorageEnabled={true}
+      //         //injectedJavaScript={if(window.location.href){}}
+      //         renderLoading={() => <ActivityIndicatorElement />}
+      //         // onLoadStart={(event) => handleViewStart(event)}
+      //         onLoad={() => setReload(true)}
+      //       />
+      //     </SafeAreaView>
+      //     )
+      //   }
+   
+    // const webView = (Url: any) => {
+    //   console.log("Working....");
+    //   return (
+    //     <SafeAreaView style={styles.container}>
+    //       <WebView
+    //         style={{ flex: 1 }}
+    //         originWhitelist={['*']}
+    //         source={{ uri: Url}} 
+    //         // onNavigationStateChange={(event) => {           
+    //         //   if(event.url === 'https://kadchma2.kdsg.gov.ng/home-page/'){
+    //         //     event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
+    //         //   }
+    //         // }}
+    //         // ref={webviewRef} 
+    //         onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page or close and reopen the app."}
+    //         javaScriptEnabled={true}
+    //         //for cache storage
+    //         domStorageEnabled={true}
+    //         //injectedJavaScript={if(window.location.href){}}
+    //         renderLoading={() => <ActivityIndicatorElement />}
+    //         // onLoadStart={(event) => handleViewStart(event)}
+    //         // onLoad={() => setVisible(false)}
+    //       />
+    //     {visible ? <ActivityIndicatorElement /> : null }
+    //     </SafeAreaView>
+    //     )
+    //   }
 
-      if(event.nativeEvent.url === "https://kadchma2.kdsg.gov.ng/home-page/"){
-         event.nativeEvent.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
-      }
+    // const reloadPage = () => {
+    //     return WebView.prototype.reload()
+    // }
+
+    const handleViewStart = (event: WebViewNavigationEvent) => {
+      // console.log("loading.....is..happening..");
       setVisible(true);
+      setLink('https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app');
+      setCount(count+1);
+    }
+
+    const handleViewEnd = (event: WebViewNavigationEvent) => {
+      if(event.nativeEvent.url == "https://kadchma2.kdsg.gov.ng/home-page/"){
+        event.nativeEvent.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
+      }
+      
+      // console.log(event.nativeEvent.url);
+      // console.log("loading.....has..ended..")
+      setVisible(false);
+      setLink("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
     }
  
+    // const LoadingViewState = () => {
+    //    setLink("https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app");
+    //   //  reloadPage();
+    // }
+
+
+    const INJECTED_JAVASCRIPT = `(function() {
+      if(window.location.href === "https://kadchma2.kdsg.gov.ng/home-page/"){
+        window.location.href = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"
+      }
+    })();`;
+
+    const INJECTED_AFTER_CONTENT_LOAD = `(function() {
+      window.addEventListener("message", message => {
+        alert(message.data) 
+      });
+    })();`;
+
     return (
       <SafeAreaView style={styles.container}>
         <WebView
+         ref={webviewRef}
+          onLoadProgress={function({ nativeEvent }){if(nativeEvent.url === 'https://kadchma2.kdsg.gov.ng/home-page/'){
+            nativeEvent.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"
+          }}}
+          onLoadStart={(event) => handleViewStart(event)}
           style={{ flex: 1 }}
           originWhitelist={['*']}
-          source={{ uri: "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app"}} 
-          onNavigationStateChange={(event) => {          
-            event.url = 'https://kadchma2.kdsg.gov.ng/home-page/'   
+          onNavigationStateChange={(event) => {     
             if(event.url === 'https://kadchma2.kdsg.gov.ng/home-page/'){
-              event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
+               event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
+            } else {
+               event.url = "https://kadchma2.kdsg.gov.ng/home-page/?request_type=mobile_app" 
             }
           }}
-          // ref={webviewRef} 
+          source={{ uri: link }} 
           onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page or close and reopen the app."}
           javaScriptEnabled={true}
+          // injectedJavaScriptForMainFrameOnly={true}
+          injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
+          // injectedJavaScript={INJECTED_AFTER_CONTENT_LOAD}
           //for cache storage
           domStorageEnabled={true}
-          //injectedJavaScript={if(window.location.href){}}
           renderLoading={() => <ActivityIndicatorElement />}
-          onLoadStart={(event) => handleViewStart(event)}
-          onLoad={() => setVisible(false)}
+          onLoad={(event) => handleViewEnd(event)}  
         />
         {visible ? <ActivityIndicatorElement /> : null }
       </SafeAreaView>
@@ -71,9 +173,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    // color: "#000000",
   },
   activityIndicatorStyle: {
     flex: 1,
