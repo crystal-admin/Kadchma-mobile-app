@@ -7,7 +7,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useState, useRef  } from 'react';
+import React, { useState, useRef, useContext  } from 'react';
 import { StyleSheet, ColorSchemeName, Pressable, SafeAreaView, View, ActivityIndicator } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { Entypo } from '@expo/vector-icons'; 
@@ -21,7 +21,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { WebViewNavigationEvent } from 'react-native-webview/lib/WebViewTypes';
-
+// import { CountContext } from "../App";
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -41,43 +41,41 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+export const CountContext = React.createContext(0);
+
 function RootNavigator() {
   
-  let webviewRef: React.MutableRefObject<any>;
 
-  webviewRef = useRef();
+  // const [count, setCount] = useState(0);
   
-  // function sendDataToWebView() {
-  //   webviewRef.current.postMessage("reload");
-  // }
- 
+  // let countValue = useContext(CountContext);
 
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={TabOneScreen} 
+      <Stack.Screen name="Root" component={TabOneScreen}
         options={({ navigation }: RootTabScreenProps<any>) => ({
           headerTitleAlign: "center",
           headerStyle: { backgroundColor: "#196C15", },
           headerTitleStyle: { color: "#ffffff"},
           title: 'Kadchma Enrollee Data App',
           tabBarIcon: ({ color }: any) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              // onPress={() => alert("")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <Ionicons name="ios-reload-circle" size={24} color="white" />
-              {/* 
-              <Entypo name="dots-three-vertical" size={24} color="#ffffff" />
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              /> */}
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     // onPress={() => INJECTED_JS}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}>
+          //     <Ionicons name="ios-reload-circle" size={24} color="white" />
+          //     {/* 
+          //     <Entypo name="dots-three-vertical" size={24} color="#ffffff" />
+          //     <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     /> */}
+          //   </Pressable>
+          // ),
         })}
       />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
@@ -109,21 +107,21 @@ function BottomTabNavigator() {
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Kadchma Enrollee Data App',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <Entypo name="dots-three-vertical" size={24} color="black" />
-              {/* <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              /> */}
-            </Pressable>
-          ),
+          // headerRight: () => (
+          //   <Pressable
+          //     onPress={() => navigation.navigate('Modal')}
+          //     style={({ pressed }) => ({
+          //       opacity: pressed ? 0.5 : 1,
+          //     })}>
+          //     <Entypo name="dots-three-vertical" size={24} color="black" />
+          //     {/* <FontAwesome
+          //       name="info-circle"
+          //       size={25}
+          //       color={Colors[colorScheme].text}
+          //       style={{ marginRight: 15 }}
+          //     /> */}
+          //   </Pressable>
+          // ),
         })}
       />
       <BottomTab.Screen
