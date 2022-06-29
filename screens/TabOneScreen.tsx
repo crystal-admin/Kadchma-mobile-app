@@ -175,7 +175,7 @@ export default function TabOneScreen({ }) {
             }
           }}
           source={{ uri: link }} 
-          onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, please use the reload option above to reload this page or close and reopen the app."}
+          onError={(event) => event.nativeEvent.description = "Unable to connect to Kadchma database server, possibly due to bad internet connection. To try again, kindly close and reopen the app."}
           javaScriptEnabled={true}
           // injectedJavaScriptForMainFrameOnly={true}
           injectedJavaScriptBeforeContentLoaded={INJECTED_JAVASCRIPT}
